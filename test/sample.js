@@ -29,6 +29,42 @@ function fetch(sub = 'programming') {
 }
 
 
+/**
+* @description This function is a recursive function that takes three arguments: an
+* array of elements, the value to search for, and the starting index
+* of the search. It uses a divide and conquer strategy to find
+* the first occurrence of the value in the array. The function first
+* checks if the array is empty or if the value is present
+* at the index of the starting index. If it is present, the
+* function returns true.
+* 
+* @param { array } arr - The `arr` input parameter in this
+* function is used to pass the array to be searched. It is
+* used to specify the starting index of the search and the ending
+* index of the search. The `arr` parameter is required and is passed
+* as an argument to the function.
+* 
+* @param { string } x - The `x` input parameter is a
+* value that is being searched for in the array. It is used
+* to determine the range of elements to search and the position of
+* the element to be found. The function will search for the element
+* in the range specified by the `start` and `end` parameters, and return
+* true if it is found.
+* 
+* @param { integer } start - The `start` input parameter in this
+* function is used to specify the starting index of the array to
+* search. It is used to determine the range of elements to search
+* for in the array. The `start` value is then used to initialize
+* the `mid` variable, which is used to determine the middle index of
+* the array to search.
+* 
+* @param { number } end - The `end` input parameter in this
+* function is used to specify the end index of the array to
+* search. It is used to determine the range of the search and
+* the index of the element to search for.
+* 
+* @returns { boolean } - The output of this function is `true`.
+*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
