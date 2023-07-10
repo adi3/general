@@ -1,4 +1,19 @@
 
+/**
+* @description This function makes an HTTP GET request to the Reddit API
+* to retrieve the latest posts in the specified subreddit. The response is
+* then logged to the console and returned. If an error occurs during
+* the request, the function returns null.
+* 
+* @param { string } [sub='programming'] - The `sub` input parameter in this
+* function is used to specify the sub-reddit to fetch data from. It
+* can be any valid sub-reddit name or a custom one.
+* 
+* @returns { object } - The output returned by this function is
+* a JSON object containing information about the subreddit specified in the `sub`
+* parameter. The response contains the subreddit name, description, and link to the
+* subreddit page.
+*/
 function fetch(sub = 'programming') {
     const axios = require('axios')
 
