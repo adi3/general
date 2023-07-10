@@ -30,6 +30,42 @@ function fetch(sub = 'programming') {
 }
 
 
+/**
+* @description This function is a recursive function that takes in an array
+* and a value to search for. It uses a divide and conquer
+* approach to find the index of the element in the array. The
+* function first checks if the array is empty, and if so, returns
+* false. If it is not empty, it then checks if the middle
+* element of the array is equal to the given value. If it
+* is, the function returns true.
+* 
+* @param { array } arr - The `arr` input parameter is a
+* two-dimensional array that represents the array being searched. It is used to
+* pass the array to the `search` function and to access the elements
+* of the array.
+* 
+* @param { string } x - The `x` input parameter is a
+* number that represents the value being searched for in the array. It
+* is used to determine the range of elements to search in the
+* array and the index of the element to start at.
+* 
+* @param { number } start - The `start` input parameter in this
+* function is used to specify the index of the element to search
+* for. It is used to determine the range of elements to search
+* for in the array. In this case, it is used to determine
+* the range of elements to search for in the array.
+* 
+* @param { integer } end - The `end` input parameter in this
+* function is used to specify the end index of the array to
+* search. It is used to determine the range to search within the
+* array. In the function, it is used to determine the start index
+* of the search range.
+* 
+* @returns { array } - The output of the function is the
+* position of the element in the array that is equal to the
+* given element x. If the element is not found, the function returns
+* false.
+*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
