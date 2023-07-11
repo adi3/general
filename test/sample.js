@@ -1,4 +1,18 @@
 
+/**
+* @description This function fetches data from a specific subreddit on Reddit using
+* the `axios` library. It takes a sub-reddit name as input and returns
+* the JSON data from that subreddit. If there is an error, the
+* function returns null.
+* 
+* @param { string } [sub='programming'] - The `sub` input parameter in this
+* function is used to specify the name of the subreddit to retrieve
+* data from. It can be any valid name of a subreddit on
+* Reddit.
+* 
+* @returns { object } - The output returned by this function is
+* a JSON object containing the posts in the specified subreddit.
+*/
 function fetch(sub = 'programming') {
     const axios = require('axios')
 
