@@ -1,3 +1,4 @@
+
 this.createAuthChallengeFn = new cdk.aws_lambda_nodejs.NodejsFunction(
       this,
       `CreateAuthChallenge${id}`,
