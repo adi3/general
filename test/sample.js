@@ -1,4 +1,21 @@
-
+this.createAuthChallengeFn = new cdk.aws_lambda_nodejs.NodejsFunction(
+      this,
+      `CreateAuthChallenge${id}`,
+      {
+        entry: join(__dirname, "..", "custom-auth", "create-auth-challenge.js"),
+        runtime: cdk.aws_lambda.Runtime.NODEJS_18_X,
+        architecture: cdk.aws_lambda.Architecture.ARM_64,
+        bundling: {
+          format: cdk.aws_lambda_nodejs.OutputFormat.ESM,
+        },
+        timeout: cdk.Duration.seconds(5),
+        ...props.functionProps?.createAuthChallenge,
+        environment: {
+          ...createAuthChallengeEnvironment,
+          ...props.functionProps?.createAuthChallenge?.environment,
+        },
+      }
+    );
 
 /**
 * @description This function fetches the JSON data from the Reddit website using
