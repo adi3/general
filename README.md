@@ -1,1 +1,2 @@
 # test-repo
+Lorem ipsum
