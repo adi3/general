@@ -1,3 +1,4 @@
+
 /**
 * @description This function makes a GET request to the Reddit API using
 * the axios library, and returns the JSON data for the specified sub-reddit.
