@@ -1,3 +1,4 @@
+
 /**
 * @description This function makes an API request to Reddit's JSON API to
 * retrieve the latest posts in the specified sub-reddit. The response is then
