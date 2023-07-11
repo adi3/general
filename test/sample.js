@@ -1,37 +1,4 @@
 
-this.createAuthChallengeFn = new cdk.aws_lambda_nodejs.NodejsFunction(
-      this,
-      `CreateAuthChallenge${id}`,
-      {
-        entry: join(__dirname, "..", "custom-auth", "create-auth-challenge.js"),
-        runtime: cdk.aws_lambda.Runtime.NODEJS_18_X,
-        architecture: cdk.aws_lambda.Architecture.ARM_64,
-        bundling: {
-          format: cdk.aws_lambda_nodejs.OutputFormat.ESM,
-        },
-        timeout: cdk.Duration.seconds(5),
-        ...props.functionProps?.createAuthChallenge,
-        environment: {
-          ...createAuthChallengeEnvironment,
-          ...props.functionProps?.createAuthChallenge?.environment,
-        },
-      }
-    );
-
-/**
-* @description This function fetches the JSON data from the Reddit website using
-* the `axios` library. It takes a sub-reddit as an argument (`sub`), and
-* returns the JSON data for that sub-reddit.
-* 
-* @param { string } [sub='programming'] - The `sub` input parameter is used
-* to specify the name of the subreddit that the function should fetch
-* data from. The `sub` parameter is optional and can be set to
-* any valid name of a subreddit.
-* 
-* @returns { object } - The output returned by this function is
-* the JSON data from the Reddit API. The JSON data is then
-* logged to the console.
-*/
 function fetch(sub = 'programming') {
     const axios = require('axios')
 
