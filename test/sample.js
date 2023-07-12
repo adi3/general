@@ -1,4 +1,3 @@
-
 const handler = async (event) => {
   logger.debug(JSON.stringify(event, null, 2));
   logger.info(
