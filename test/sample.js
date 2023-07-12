@@ -1,127 +1,118 @@
-const handler = (event) => {
-  logger.debug(JSON.stringify(event, null, 2));
-  logger.info(
-    "FIDO2 credentials API invocation:",
-    event.pathParameters.fido2path
-  );
-  if (event.requestContext.authorizer.jwt.claims.token_use !== "id") {
-    logger.info("ERROR: This API must be accessed using the ID Token");
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ message: "Use your ID token to access this API" }),
-      headers,
-    };
-  }
-  try {
-    const {
-      sub,
-      email,
-      phone_number: phoneNumber,
-      name,
-      "cognito:username": cognitoUsername,
-    } = event.requestContext.authorizer.jwt.claims;
-    const userHandle = determineUserHandle({ sub, cognitoUsername });
-    const userName = email ?? phoneNumber ?? name ?? cognitoUsername;
-    const displayName = name ?? email;
-    if (event.pathParameters.fido2path === "register-authenticator/start") {
-      logger.info("Starting a new authenticator registration ...");
-      if (!userName) {
-        throw new Error("Unable to determine name for user");
-      }
-      if (!displayName) {
-        throw new Error("Unable to determine display name for user");
-      }
-      const rpId = event.queryStringParameters?.rpId;
-      if (!rpId) {
-        throw new UserFacingError("Missing RP ID");
-      }
-      if (!allowedRelyingPartyIds.includes(rpId)) {
-        throw new UserFacingError("Unrecognized RP ID");
-      }
-      const options = await requestCredentialsChallenge({
-        userId: userHandle,
-        name: userName,
-        displayName,
-        rpId,
-      });
-      logger.debug("Options:", JSON.stringify(options));
-      return {
-        statusCode: 200,
-        body: JSON.stringify(options),
-        headers,
-      };
-    } else if (
-      event.pathParameters.fido2path === "register-authenticator/complete"
-    ) {
-      logger.info("Completing the new authenticator registration ...");
-      const storedCredential = await handleCredentialsResponse(
-        userHandle,
-        parseBody(event)
-      );
-      return {
-        statusCode: 200,
-        body: JSON.stringify(storedCredential),
-        headers,
-      };
-    } else if (event.pathParameters.fido2path === "authenticators/list") {
-      logger.info("Listing authenticators ...");
-      const rpId = event.queryStringParameters?.rpId;
-      if (!rpId) {
-        throw new UserFacingError("Missing RP ID");
-      }
-      if (!allowedRelyingPartyIds.includes(rpId)) {
-        throw new UserFacingError("Unrecognized RP ID");
-      }
-      const authenticators = await getExistingCredentialsForUser({
-        userId: userHandle,
-        rpId,
-      });
-      return {
-        statusCode: 200,
-        body: JSON.stringify({
-          authenticators,
-        }),
-        headers,
-      };
-    } else if (event.pathParameters.fido2path === "authenticators/delete") {
-      logger.info("Deleting authenticator ...");
-      const parsed = parseBody(event);
-      assertBodyIsObject(parsed);
-      logger.debug("CredentialId:", parsed.credentialId);
-      await deleteCredential({
-        userId: userHandle,
-        credentialId: parsed.credentialId,
-      });
-      return { statusCode: 204 };
-    } else if (event.pathParameters.fido2path === "authenticators/update") {
-      const parsed = parseBody(event);
-      assertBodyIsObject(parsed);
-      await updateCredential({
-        userId: userHandle,
-        credentialId: parsed.credentialId,
-        friendlyName: parsed.friendlyName,
-      });
-      return { statusCode: 200, headers };
+const handler = async (event) => {
+    logger.debug(JSON.stringify(event, null, 2));
+    logger.info("FIDO2 credentials API invocation:", event.pathParameters.fido2path);
+    if (event.requestContext.authorizer.jwt.claims.token_use !== "id") {
+        logger.info("ERROR: This API must be accessed using the ID Token");
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ message: "Use your ID token to access this API" }),
+            headers,
+        };
     }
-    return {
-      statusCode: 404,
-      body: JSON.stringify({ message: "Not found" }),
-      headers,
-    };
-  } catch (err) {
-    logger.error(err);
-    if (err instanceof UserFacingError)
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ message: err.message }),
-        headers,
-      };
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: "Internal Server Error" }),
-      headers,
-    };
-  }
+    try {
+        const { sub, email, phone_number: phoneNumber, name, "cognito:username": cognitoUsername, } = event.requestContext.authorizer.jwt.claims;
+        const userHandle = determineUserHandle({ sub, cognitoUsername });
+        const userName = email ?? phoneNumber ?? name ?? cognitoUsername;
+        const displayName = name ?? email;
+        if (event.pathParameters.fido2path === "register-authenticator/start") {
+            logger.info("Starting a new authenticator registration ...");
+            if (!userName) {
+                throw new Error("Unable to determine name for user");
+            }
+            if (!displayName) {
+                throw new Error("Unable to determine display name for user");
+            }
+            const rpId = event.queryStringParameters?.rpId;
+            if (!rpId) {
+                throw new UserFacingError("Missing RP ID");
+            }
+            if (!allowedRelyingPartyIds.includes(rpId)) {
+                throw new UserFacingError("Unrecognized RP ID");
+            }
+            const options = await requestCredentialsChallenge({
+                userId: userHandle,
+                name: userName,
+                displayName,
+                rpId,
+            });
+            logger.debug("Options:", JSON.stringify(options));
+            return {
+                statusCode: 200,
+                body: JSON.stringify(options),
+                headers,
+            };
+        }
+        else if (event.pathParameters.fido2path === "register-authenticator/complete") {
+            logger.info("Completing the new authenticator registration ...");
+            const storedCredential = await handleCredentialsResponse(userHandle, parseBody(event));
+            return {
+                statusCode: 200,
+                body: JSON.stringify(storedCredential),
+                headers,
+            };
+        }
+        else if (event.pathParameters.fido2path === "authenticators/list") {
+            logger.info("Listing authenticators ...");
+            const rpId = event.queryStringParameters?.rpId;
+            if (!rpId) {
+                throw new UserFacingError("Missing RP ID");
+            }
+            if (!allowedRelyingPartyIds.includes(rpId)) {
+                throw new UserFacingError("Unrecognized RP ID");
+            }
+            const authenticators = await getExistingCredentialsForUser({
+                userId: userHandle,
+                rpId,
+            });
+            return {
+                statusCode: 200,
+                body: JSON.stringify({
+                    authenticators,
+                }),
+                headers,
+            };
+        }
+        else if (event.pathParameters.fido2path === "authenticators/delete") {
+            logger.info("Deleting authenticator ...");
+            const parsed = parseBody(event);
+            assertBodyIsObject(parsed);
+            logger.debug("CredentialId:", parsed.credentialId);
+            await deleteCredential({
+                userId: userHandle,
+                credentialId: parsed.credentialId,
+            });
+            return { statusCode: 204 };
+        }
+        else if (event.pathParameters.fido2path === "authenticators/update") {
+            const parsed = parseBody(event);
+            assertBodyIsObject(parsed);
+            await updateCredential({
+                userId: userHandle,
+                credentialId: parsed.credentialId,
+                friendlyName: parsed.friendlyName,
+            });
+            return { statusCode: 200, headers };
+        }
+        return {
+            statusCode: 404,
+            body: JSON.stringify({ message: "Not found" }),
+            headers,
+        };
+    }
+    catch (err) {
+        logger.error(err);
+        if (err instanceof UserFacingError)
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ message: err.message }),
+                headers,
+            };
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: "Internal Server Error" }),
+            headers,
+        };
+    }
 };
 
 
