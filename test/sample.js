@@ -1,28 +1,5 @@
 
-const handler: Handler<{
-  requestContext: {
-    authorizer: {
-      jwt: {
-        claims: {
-          email?: string;
-          phone_number?: string;
-          name?: string;
-          sub: string;
-          "cognito:username": string;
-          token_use: "id" | "access";
-        };
-      };
-    };
-  };
-  body?: string;
-  isBase64Encoded: boolean;
-  pathParameters: {
-    fido2path: string;
-  };
-  queryStringParameters?: {
-    rpId?: string;
-  };
-}> = async (event) => {
+const handler = async (event) => {
   logger.debug(JSON.stringify(event, null, 2));
   logger.info(
     "FIDO2 credentials API invocation:",
