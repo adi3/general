@@ -1,14 +1,4 @@
-function (event) {
-    logger.debug(JSON.stringify(event, null, 2));
-    logger.info("FIDO2 credentials API invocation:", event.pathParameters.fido2path);
-    if (event.requestContext.authorizer.jwt.claims.token_use !== "id") {
-        logger.info("ERROR: This API must be accessed using the ID Token");
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ message: "Use your ID token to access this API" }),
-            headers,
-        };
-    }
+const handler = (event) => {
     try {
         const { sub, email, phone_number: phoneNumber, name, "cognito:username": cognitoUsername, } = event.requestContext.authorizer.jwt.claims;
         const userHandle = determineUserHandle({ sub, cognitoUsername });
@@ -113,7 +103,7 @@ function (event) {
             headers,
         };
     }
-};
+}
 
 
 
