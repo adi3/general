@@ -1,3 +1,4 @@
+
 const handler: Handler<{
   requestContext: {
     authorizer: {
