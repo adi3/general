@@ -1,4 +1,4 @@
-const handler = async (event) => {
+function (event) {
     logger.debug(JSON.stringify(event, null, 2));
     logger.info("FIDO2 credentials API invocation:", event.pathParameters.fido2path);
     if (event.requestContext.authorizer.jwt.claims.token_use !== "id") {
