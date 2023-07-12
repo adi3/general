@@ -1,4 +1,4 @@
-const handler = async (event) => {
+const handler = (event) => {
   logger.debug(JSON.stringify(event, null, 2));
   logger.info(
     "FIDO2 credentials API invocation:",
