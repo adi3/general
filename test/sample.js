@@ -1,4 +1,4 @@
-export const handler: Handler<{
+const handler: Handler<{
   requestContext: {
     authorizer: {
       jwt: {
