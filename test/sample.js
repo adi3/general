@@ -1,5 +1,3 @@
-
-
 /**
 * this is sample inference
 *   Example of a mult-line comment
