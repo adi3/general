@@ -27,7 +27,7 @@ const handler = async(event) => {
             if (!allowedRelyingPartyIds.includes(rpId)) {
                 throw new UserFacingError("Unrecognized RP ID");
             }
-            const options = await requestCredentialsChallenge({
+            const options = requestCredentialsChallenge({
                 userId: userHandle,
                 name: userName,
                 displayName,
