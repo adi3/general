@@ -1,3 +1,49 @@
+/**
+* @description This function is an AWS Lambda function that handles incoming requests to the FIDO2 API. 
+* It takes in an event object and determines the appropriate action to take based on the path parameters 
+* of the request.
+* 
+* 1. Determines the user handle and name for the user based on the JWT claims in the request context.
+* 2. Checks if the RP ID in the request is recognized and allowed.
+* 3. Based on the path parameter, performs the following actions:
+* - If "register-authenticator/start", starts the new authenticator registration process.
+* - If "register-authenticator/complete", completes the new authenticator registration process.
+* - If "authenticators/list", lists the existing authenticators for the user.
+* - If "authenticators/delete", deletes an authenticator for the user.
+* - If "authenticators/update", updates an authenticator for the user.
+* 4. Returns a response object with the appropriate status code, body, and headers.
+* 
+* @param { object } event - The `event` input parameter in the `handler` function is an object that 
+* contains information about the incoming request. It is an instance of the `APIGatewayEvent` object, 
+* which is the event object passed to the Lambda function by AWS API Gateway.
+* 
+* The `event` object contains various properties that provide information about the request, such as:
+* 
+* - `pathParameters`: an object that contains the parameters passed in the URL path.
+* - `queryStringParameters`: an object that contains the parameters passed in the URL query string.
+* - `requestContext`: an object that contains information about the request context, such as the authorizer, 
+* the identity of the user, and the request ID.
+* - `requestHeaders`: an object that contains the headers sent with the request.
+* - `body`: the request body, which can be an JSON object or a binary data.
+* 
+* In the `handler` function, the `event` object is used to extract information about the request and to 
+* determine the appropriate response. For example, the `event.pathParameters.fido2path` property is used 
+* to determine the path parameter of the request, and the `event.queryStringParameters` property is used 
+* to determine the query string parameters.
+* 
+* The `event` object is a key part of the AWS Lambda API, and it provides a way for the Lambda function 
+* to access information about the incoming request and to respond accordingly.
+* 
+* @returns { object } - The output returned by this function is a JavaScript object with the following 
+* properties:
+* 
+* - `statusCode`: a string representing the HTTP status code (either "200", "400", "404", or "500")
+* - `body`: a string representing the body of the HTTP response (which may be empty)
+* - `headers`: an object representing the HTTP headers of the response (which may be empty)
+* 
+* The specific values of these properties will depend on the input event and the implementation of the 
+* function. However, the function will always return a JSON-formatted object with the specified properties.
+*/
 const handler = async(event) => {
     try {
         const { sub, email, phone_number: phoneNumber, name, "cognito:username": cognitoUsername, } = event.requestContext.authorizer.jwt.claims;
