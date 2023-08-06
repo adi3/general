@@ -1,4 +1,24 @@
 
+/**
+* @description This function fetches data from a Reddit API based on a specified subreddit (determined 
+* by the `sub` parameter). It uses the `axios` library to make a GET request to the API endpoint, logs 
+* the response to the console, and returns the response or null if an error occurs.
+* 
+* @param { string } [sub='programming'] - The `sub` input parameter in the `fetch` function is a string 
+* that determines the subreddit to fetch data from. The function uses the `axios` library to make a GET 
+* request to the specified subreddit's JSON API endpoint. The URL for the API endpoint is constructed 
+* by concatenating the string `"https://www.reddit.com/r/"`, followed by the value of the `sub` parameter.
+* 
+* For example, if the value of `sub` is `"programming"`, the URL for the API endpoint would be 
+* `"https://www.reddit.com/r/programming.json"`. The function then makes a request to this endpoint and 
+* logs the response to the console. If an error occurs, the function logs the error to the console and 
+* returns null.
+* 
+* @returns { object } - The output returned by this function is a JSON object containing the data from 
+* the Reddit API for the specified subreddit. The function uses the `axios` library to make a GET request 
+* to the API endpoint, and the response is logged to the console and returned from the function. If there 
+* is an error, the function logs the error to the console and returns null.
+*/
 function fetch(sub = 'programming') {
     const axios = require('axios')
 
