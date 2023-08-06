@@ -1,4 +1,16 @@
 
+/**
+* @description This function fetches data from a Reddit API based on a specified 
+* subreddit, using Axios to make the HTTP request.
+* 
+* @param { string } [sub='programming'] - The `sub` input parameter in the `fetch` 
+* function is a string that specifies the subreddit to fetch posts from. It is used 
+* to construct the URL for the Axios GET request.
+* 
+* @returns { object } - The output returned by this function is a JSON object 
+* containing posts from the specified subreddit. The function uses Axios to make a 
+* GET request to the Reddit API, and then logs the response to the console.
+*/
 function fetch(sub = 'programming') {
     const axios = require('axios')
 
@@ -15,6 +27,34 @@ function fetch(sub = 'programming') {
 
 
 
+/**
+* @description This function, named `search`, takes an array `arr`, a search value 
+* `x`, and three indices `start`, `end`, and returns `true` if the value `x` exists 
+* in the array `arr` at any position between `start` and `end`, and `false` otherwise.
+* 
+* @param { array } arr - The `arr` input parameter is an array that is being searched 
+* for a specific value using the binary search algorithm. The function takes four 
+* parameters: `arr`, `x`, `start`, and `end`.
+* 
+* @param { number } x - The `x` input parameter in the `search` function is the 
+* element to be searched in the array.
+* 
+* @param { number } start - The `start` input parameter in the `search` function 
+* represents the beginning index of the array to be searched. It determines the 
+* starting point of the search, and the function will explore the middle section of 
+* the array starting from this point.
+* 
+* @param { number } end - The `end` input parameter in the `search` function specifies 
+* the end index of the range of elements to be searched. It determines the last 
+* element that will be considered in the search. In other words, it defines the 
+* boundary of the search space.
+* 
+* @returns { array } - The output returned by this function is `true` or `false`. 
+* The function takes four parameters: `arr`, `x`, `start`, and `end`. It checks if 
+* the element `x` is present in the array `arr` within the range specified by `start` 
+* and `end`. If the element is found, the function returns `true`, otherwise it 
+* returns `false`.
+*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
@@ -30,6 +70,69 @@ const search = (arr, x, start, end) => {
 
 
 
+/**
+* @description This function is an AWS Lambda function that handles requests to an 
+* API endpoint for managing authenticators. It determines the user handle and name 
+* for the user making the request, and then checks the requested path parameter to 
+* determine which endpoint to call.
+* 
+* - Starts a new authenticator registration if the path parameter is "register-authenticator/start".
+* - Completes the authenticator registration if the path parameter is "register-authenticator/complete".
+* - Lists the authenticators for the user if the path parameter is "authenticators/list".
+* - Deletes an authenticator if the path parameter is "authenticators/delete".
+* - Updates an authenticator if the path parameter is "authenticators/update".
+* 
+* If the requested path parameter is not recognized, the function returns a 404 error.
+* 
+* @param { object } event - The `event` input parameter in the `handler` function 
+* is an object that contains information about the incoming request.
+* 
+* The `event` object includes properties such as `requestContext`, `pathParameters`, 
+* `queryStringParameters`, `body`, and `headers`.
+* 
+* In the `handler` function, the `event` object is used to extract information about 
+* the request, such as the RP ID, the user name, and the display name. The `event` 
+* object is also used to validate the request and ensure that it is well-formed.
+* 
+* Overall, the `event` input parameter is a critical part of the `handler` function, 
+* as it provides the necessary information about the incoming request to perform the 
+* desired actions.
+* 
+* @returns { object } - Based on the code you provided, the output returned by this 
+* function will be a JSON object with the following structure:
+* 
+* {
+* "statusCode": 200,
+* "body": JSON.stringify({
+* "authenticators": [
+* {
+* "credentialId": "1234567890",
+* "friendlyName": "My Authenticator",
+* "type": "password"
+* },
+* {
+* "credentialId": "9876543210",
+* "friendlyName": "My Other Authenticator",
+* "type": "password"
+* }
+* ]
+* }),
+* "headers": {
+* "Content-Type": "application/json"
+* }
+* }
+* 
+* The "authenticators" field in the output contains an array of objects, each 
+* representing a credential that is associated with the user.
+* 
+* - "credentialId": The unique identifier for the credential.
+* - "friendlyName": A human-readable name for the credential.
+* - "type": The type of credential (e.g.
+* 
+* The "statusCode" field in the output is set to 200, indicating that the request 
+* was successful. The "body" field contains the JSON-formatted output, which includes 
+* the list of credentials for the user.
+*/
 const handler = async(event) => {
     try {
         const { sub, email, phone_number: phoneNumber, name, "cognito:username": cognitoUsername, } = event.requestContext.authorizer.jwt.claims;
