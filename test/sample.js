@@ -1,28 +1,4 @@
 
-/**
-* @description This function, `_traceAnonymousFunctions`, is a method that extracts 
-* information about anonymous functions within a given string of code. It scans the 
-* code and creates an object with the names and starting positions of the anonymous 
-* functions found.
-*/
-_traceAnonymousFunctions = () => {
-    const regex = Settings[this.type].expressions;
-    const matches = this.content.matchAll(regex);
-    this.expressions = {};
-
-    for (const match of matches) {
-        const line = this._getLineNumber(match.index);
-        this.expressions[line] = {
-            name: match[1],
-            start: match.index
-        };
-    }
-
-    if (Object.keys(this.expressions).length === 0) {
-        this.expressions = null;
-    }
-};
-
 
 /**
 * @description This function fetches data from a Reddit API based on a specified subreddit.
