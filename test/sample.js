@@ -73,6 +73,60 @@ const search = (arr, x, start, end) => {
 
 const handler = async(event) => {
     try {
+/**
+* @description This is an AWS Lambda function that handles FIDO2 registration and 
+* authentication requests.
+* 
+* 	 Start the authenticator registration process (path parameter "register-authenticator/start")
+* 	 Complete the authenticator registration process (path parameter "register-authenticator/complete")
+* 	 List the user's authenticators (path parameter "authenticators/list")
+* 	 Delete an authenticator (path parameter "authenticators/delete")
+* 	 Update an authenticator's friendly name (path parameter "authenticators/update")
+* 
+* The function returns a response based on the request, including error messages if 
+* necessary.
+* 
+* @param { object } event - The `event` input parameter in the `handler` function 
+* is an object that contains information about the incoming request.
+* 
+* In this function, the `event` object is used to extract information about the 
+* request, such as the `authorizer` claims, the `pathParameters`, and the `queryStringParameters`.
+* 
+* For example, the function uses `event.pathParameters.fido2path` to determine the 
+* current path of the request and use it to decide which action to take.
+* 
+* In summary, the `event` object is a key input parameter in the `handler` function 
+* that provides information about the incoming request and is used to determine the 
+* appropriate action to take.
+* 
+* @returns { object } - Based on the code you provided, the output returned by the 
+* function will be a JSON object with the following properties:
+* 
+* 	 `statusCode`: 200 (OK)
+* 	 `body`: JSON.stringify({ options: ... }) or JSON.stringify({ storedCredential: 
+* ... }) or JSON.stringify({ authenticators: ... }) or JSON.stringify({ message: 
+* "Not found" }) or JSON.stringify({ message: "Internal Server Error" })
+* 	 `headers`: { ...
+* 
+* The `body` property will contain the actual data returned by the function, depending 
+* on the path parameter of the incoming request.
+* 
+* Here's a breakdown of the possible output returns based on the path parameter of 
+* the incoming request:
+* 
+* 	 `/register-authenticator/start`: Returns { statusCode: 200, body: JSON.stringify({ 
+* options: ... }), headers: { ... } }
+* 	 `/register-authenticator/complete`: Returns { statusCode: 200, body: JSON.stringify({ 
+* storedCredential: ... }), headers: { ... } }
+* 	 `/authenticators/list`: Returns { statusCode: 200, body: JSON.stringify({ 
+* authenticators: ... }), headers: { ... } }
+* 	 `/authenticators/delete`: Returns { statusCode: 204 }
+* 	 `/authenticators/update`: Returns { statusCode: 200, headers: { ... } }
+* 	 Otherwise (404): Returns { statusCode: 404, body: JSON.stringify({ message: "Not 
+* found" }), headers: { ... } }
+* 	 Otherwise (500): Returns { statusCode: 500, body: JSON.stringify({ message: 
+* "Internal Server Error" }), headers: { ...
+*/
         const { sub, email, phone_number: phoneNumber, name, "cognito:username": cognitoUsername, } = event.requestContext.authorizer.jwt.claims;
         const userHandle = determineUserHandle({ sub, cognitoUsername });
         const userName = email ?? phoneNumber ?? name ?? cognitoUsername;
