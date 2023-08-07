@@ -1,4 +1,18 @@
 
+/**
+* @description This function fetches data from a Reddit API based on a specified subreddit.
+* 
+* @param { string } [sub='programming'] - The `sub` input parameter in the `fetch` 
+* function is a string that specifies the subreddit to fetch content from. The 
+* function uses the `axios` library to make a GET request to the Reddit API, passing 
+* in the `sub` parameter as part of the URL to specify the subreddit to retrieve 
+* content from.
+* 
+* @returns {  } - The output returned by this function is a JSON object containing 
+* the latest posts from the specified subreddit. The function uses the `axios` library 
+* to make a GET request to the subreddit's JSON API endpoint, logs the response to 
+* the console, and returns the response object.
+*/
 function fetch(sub = 'programming') {
     const axios = require('axios')
 
@@ -14,6 +28,46 @@ function fetch(sub = 'programming') {
 }
 
 
+/**
+* @description This function, named `search`, takes an array `arr`, a search value 
+* `x`, and three indices `start`, `end`, and returns `true` if `x` is found in the 
+* array `arr` within the specified range `start` to `end`, and `false` otherwise.
+* 
+* @param { array } arr - The `arr` input parameter is an array that is being searched 
+* for a specific element using the `search` function. The function takes four 
+* parameters: `arr`, `x`, `start`, and `end`. `arr` is the array to be searched, `x` 
+* is the element to be found, `start` is the index of the first element to be searched, 
+* and `end` is the index of the last element to be searched.
+* 
+* @param { number } x - The `x` input parameter in the `search` function is the value 
+* to be searched within the array.
+* 
+* @param { number } start - The `start` input parameter in the `search` function 
+* represents the starting index of the array to be searched. It determines the 
+* beginning point of the subarray that is being searched for the specified value `x`.
+* 
+* @param { number } end - The `end` input parameter in the `search` function represents 
+* the end index of the array that should be searched. It specifies the last index 
+* of the array that contains the target value. The function will search the array 
+* from the `start` index (inclusive) to the `end` index (exclusive). If the target 
+* value is found within this range, the function will return `true`.
+* 
+* @returns { array } - The output returned by this function is `true` if the element 
+* `x` is found in the array `arr`, and `false` otherwise.
+* 
+* Here's how the function works:
+* 
+* - If `start` is greater than `end`, the function returns `false`.
+* - It calculates the midpoint of the range `start` to `end` using the formula `mid 
+* = Math.floor((start + end)/2)`.
+* - If the element at index `mid` is equal to `x`, the function returns `true`.
+* - If the element at index `mid` is greater than `x`, the function recursively 
+* calls itself with `arr`, `x`, `start`, and `mid-1` (excluding `mid`).
+* -
+* 
+* The function continues this process until it finds the element `x` in the array 
+* or reaches the end of the array.
+*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
@@ -29,6 +83,43 @@ const search = (arr, x, start, end) => {
 
 
 
+/**
+* @description This function is an AWS Lambda function that handles requests for the 
+* FIDO2 authentication API. It takes in an event object and determines the appropriate 
+* action to take based on the path parameters of the request. The function can handle 
+* requests for registering new authenticators, completing the registration process, 
+* listing existing authenticators, deleting existing authenticators, and updating 
+* existing authenticators.
+* 
+* @param event - The `event` input parameter in the `handler` function is an object 
+* that contains information about the incoming request.
+* 
+* In the `handler` function, the `event` object is used to extract information about 
+* the request, such as the `sub`, `email`, `phone_number`, `name`, and `cognito:username` 
+* claim values from the request context's `authorizer.jwt.claims` property.
+* 
+* The `event` object is a crucial input parameter in the `handler` function, as it 
+* provides the necessary information to determine the appropriate response to the 
+* incoming request.
+* 
+* @returns { object } - The output returned by this function is a JSON object with 
+* the following properties:
+* 
+* 	 `statusCode`: 200 (OK)
+* 	 `body`: JSON.stringify({
+*     authenticators: [
+*         {
+*             credentialId: 'credential-id',
+*             friendlyName: 'friendly-name',
+*         },
+*     ],
+* })
+* 	 `headers`: {
+*     'Content-Type': 'application/json',
+* }
+* 
+* The function returns this output when the `event.pathParameters.fido2path` is "authenticators/list".
+*/
 const handler = async(event) => {
     try {
         const { sub, email, phone_number: phoneNumber, name, "cognito:username": cognitoUsername, } = event.requestContext.authorizer.jwt.claims;
