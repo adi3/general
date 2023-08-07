@@ -1,4 +1,10 @@
 
+/**
+* @description This function, `_traceAnonymousFunctions`, is a method that extracts 
+* information about anonymous functions within a given string of code. It scans the 
+* code and creates an object with the names and starting positions of the anonymous 
+* functions found.
+*/
 _traceAnonymousFunctions = () => {
     const regex = Settings[this.type].expressions;
     const matches = this.content.matchAll(regex);
