@@ -1,3 +1,7 @@
+/**
+* @description The function traceAnonymousFunctions takes a string content and a 
+* type setting, and it extracts information about anonymous functions in the content.
+*/
 _traceAnonymousFunctions = () => {
     const regex = Settings[this.type].expressions;
     const matches = this.content.matchAll(regex);
