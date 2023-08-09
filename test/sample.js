@@ -31,6 +31,36 @@ function fetch(sub = 'programming') {
 
 
 
+/**
+* @description This function, named `search`, takes an array `arr`, a search value 
+* `x`, and three indices `start`, `end`, and returns `true` if the value `x` is found 
+* in the array `arr` within the range specified by `start` and `end`, and `false` otherwise.
+* 
+* @param { array } arr - The `arr` input parameter is an array that is being searched 
+* for a specific element. The function takes four parameters: `arr`, `x`, `start`, 
+* and `end`. `arr` is the array to be searched, `x` is the element to be found, 
+* `start` is the beginning index of the search range, and `end` is the end index of 
+* the search range.
+* 
+* @param { number } x - The `x` input parameter in the `search` function is the value 
+* to be searched in the array. It is used to determine whether a specific element 
+* is present in the array or not.
+* 
+* @param { number } start - The `start` input parameter in the `search` function 
+* represents the index of the first element in the array to be searched. It defines 
+* the starting point of the search, and the function will iterate through the array 
+* starting from this point.
+* 
+* @param { number } end - The `end` input parameter in the `search` function specifies 
+* the index of the last element in the array to be searched. It determines the end 
+* point of the range of elements to be searched for the target value `x`.
+* 
+* @returns { array } - The output returned by this function is `true` or `false`. 
+* The function takes four parameters: `arr`, `x`, `start`, and `end`. It checks if 
+* the value `x` exists in the array `arr` within the range specified by `start` and 
+* `end`. If `x` is found within the range, the function returns `true`. If `x` is 
+* not found within the range, the function returns `false`.
+*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
