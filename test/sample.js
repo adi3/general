@@ -30,33 +30,7 @@ function fetch(sub = 'programming') {
 
 
 
-/**
-* @description This function, named `search`, takes an array `arr`, a search value 
-* `x`, and three index parameters `start`, `end`, and returns `true` if the search 
-* value is found in the array, and `false` otherwise.
-* 
-* @param { array } arr - The `arr` input parameter is an array that is being searched 
-* for a specific value. The function takes four parameters: `arr`, `x`, `start`, and 
-* `end`. `arr` is the array to be searched, `x` is the value to be found, `start` 
-* is the index of the first element to be searched, and `end` is the index of the 
-* last element to be searched.
-* 
-* @param { number } x - The `x` input parameter in the `search` function is the value 
-* that should be searched within the array `arr`.
-* 
-* @param { number } start - The `start` input parameter in the `search` function 
-* represents the leftmost index of the range of elements to be searched.
-* 
-* @param { number } end - The `end` input parameter in the `search` function defines 
-* the end index of the range of elements to be searched. It is used to specify the 
-* last element of the array that should be included in the search. The function will 
-* return `true` if the element `x` is found in the array within the specified range, 
-* and `false` otherwise.
-* 
-* @returns { array } - The output returned by this function is `true` or `false`. 
-* The function takes four parameters: `arr`, `x`, `start`, and `end`. It searches 
-* for the element `x` in the array `arr` starting from index `start` until index `end`.
-*/
+
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
