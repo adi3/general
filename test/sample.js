@@ -30,32 +30,7 @@ function fetch(sub = 'programming') {
 
 
 
-/**
-* @description This function, named `search`, takes an array `arr`, a search value 
-*  `x`, and three indices `start`, `end`, and searches for the value `x` in the array 
-*  `arr` within the range specified by `start` and `end`.
-* 
-* @param { array } arr - The `arr` input parameter is an array that is being searched 
-*  for a specific value using the binary search algorithm. The function takes four 
-*  parameters: `arr`, `x`, `start`, and `end`. The `arr` parameter is the array to 
-*  be searched, and the `x` parameter is the value to be found.
-* 
-* @param { number } x - The `x` input parameter in the `search` function is the value 
-*  to be searched in the array.
-* 
-* @param start - The `start` input parameter in the `search` function determines the 
-*  starting index of the range of elements to be searched.
-* 
-* @param { number } end - The `end` input parameter in the `search` function determines 
-*  the end index of the array to search. It specifies the position in the array 
-*  beyond which the function should not search for the given value. In other words, 
-*  it defines the right boundary of the search range.
-* 
-* @returns { array } - The output returned by this function is `true` or `false`. 
-*  The function takes four parameters: `arr`, `x`, `start`, and `end`, and it searches 
-*  for the element `x` in the array `arr` starting from the index `start` and ending 
-*  at the index `end`.
-*/
+
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
