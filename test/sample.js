@@ -30,42 +30,6 @@ function fetch(sub = 'programming') {
 
 
 
-/**
-* @description This function, named `search`, takes an array `arr`, a value `x`, and 
-* three indexes `start`, `end`, and returns `true` or `false` indicating whether `x` 
-* is present in the array `arr` within the specified range `[start, end]`.
-* 
-* @param { array } arr - The `arr` input parameter is an array that the function 
-* searches for the specified value `x`.
-* 
-* @param { number } x - The `x` input parameter in the `search` function is the 
-* element to be searched in the array.
-* 
-* @param { number } start - The `start` input parameter in the `search` function 
-* represents the starting index of the range of elements to be searched. It determines 
-* the beginning of the subarray that needs to be searched for the given `x` element.
-* 
-* @param { number } end - The `end` input parameter in the `search` function determines 
-* the end index of the array to be searched. It specifies the last index of the array 
-* that should be checked for the target value.
-* 
-* @returns { array } - The output returned by this function is `true` if the element 
-* `x` is found in the array `arr`, and `false` otherwise.
-* 
-* Here's a breakdown of how the function works:
-* 
-* 	- `start` and `end` are the indices of the range of elements in the array that 
-* should be searched.
-* 	- `mid` is the middle index of the range, calculated as `(start + end)/2`.
-* 	- If `arr[mid]` is equal to `x`, the function returns `true`.
-* 	- If `arr[mid]` is greater than `x`, the function recursively calls itself with 
-* `start` set to `mid-1` and `end` set to `end`.
-* 	- If `arr[mid]` is less than `x`, the function recursively calls itself with 
-* `start` set to `start` and `end` set to `mid+1`.
-* 
-* The function will eventually find the element `x` in the array, and return `true`, 
-* or it will determine that the element is not in the array and return `false`.
-*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
