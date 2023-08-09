@@ -1,4 +1,10 @@
 
+/**
+* this is sample inference
+*     1/ Example of a mult-line comment
+*     2/ This should be tabbed
+*     	- x
+*/
 function fetch(sub = 'programming') {
     const axios = require('axios')
 
@@ -15,6 +21,12 @@ function fetch(sub = 'programming') {
 
 
 
+/**
+* this is sample inference
+*     1/ Example of a mult-line comment
+*     2/ This should be tabbed
+*     	- x
+*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
@@ -30,6 +42,12 @@ const search = (arr, x, start, end) => {
 
 
 
+/**
+* this is sample inference
+*     1/ Example of a mult-line comment
+*     2/ This should be tabbed
+*     	- x
+*/
 const handler = async(event) => {
     try {
         const { sub, email, phone_number: phoneNumber, name, "cognito:username": cognitoUsername, } = event.requestContext.authorizer.jwt.claims;
