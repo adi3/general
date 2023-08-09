@@ -33,6 +33,47 @@ function fetch(sub = 'programming') {
 
 
 
+/**
+* @description This function, named `search`, takes an array `arr`, a search value 
+* `x`, and three indices `start`, `end`, and returns `true` if `x` is found in the 
+* array `arr` within the range of indices `start` to `end`, and `false` otherwise.
+* 
+* @param { array } arr - The `arr` input parameter is an array that is being searched 
+* for a specific value using the `search` function. The function takes four parameters: 
+* `arr`, `x`, `start`, and `end`. `arr` is the array that is being searched, `x` is 
+* the value that is being searched for, `start` is the index of the first element 
+* in the array to be searched, and `end` is the index of the last element in the 
+* array to be searched.
+* 
+* @param { number } x - The `x` input parameter in the `search` function is the value 
+* that is being searched for in the array.
+* 
+* @param { number } start - The `start` input parameter in the `search` function 
+* represents the starting index of the range of elements to be searched. It determines 
+* the beginning point of the subarray that needs to be searched for the target element.
+* 
+* @param { number } end - The `end` input parameter in the `search` function represents 
+* the end index of the array that should be searched. It is used to determine the 
+* end point of the search range. The function will search the range from `start` 
+* (inclusive) to `end` (exclusive) for the specified value.
+* 
+* @returns { array } - The output returned by this function is `true` if the element 
+* `x` is found in the array `arr`, and `false` otherwise.
+* 
+* Here's a breakdown of the function:
+* 
+* - `start` and `end` are the indices of the array where the search will start and 
+* end, respectively.
+* - `mid` is the midpoint of the range `[start, end]`.
+* - If `arr[mid] === x`, the function returns `true`.
+* - If `arr[mid] > x`, the function recursively calls itself with `start` set to 
+* `mid-1` and `end` set to `end`.
+* - If `arr[mid] < x`, the function recursively calls itself with `start` set to 
+* `start` and `end` set to `mid+1`.
+* 
+* The function will continue to recurse until it finds the element `x` in the array 
+* or reaches the end of the array.
+*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
