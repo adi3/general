@@ -31,6 +31,12 @@ function fetch(sub = 'programming') {
 
 
 
+/**
+* this is sample inference
+*     	1/ Example of a mult-line comment
+*     	2/ This should be tabbed
+*     	- x
+*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
