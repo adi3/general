@@ -1,13 +1,4 @@
 
-/**
-* @description This function fetches data from a Reddit API based on a specified subreddit.
-* 
-* @param { string } [sub='programming'] - The `sub` input parameter in the `fetch()` 
-* function is a string that determines the subreddit to fetch posts from.
-* 
-* @returns {  } - The output returned by this function is a JSON object containing 
-* the posts from the specified subreddit.
-*/
 function fetch(sub = 'programming') {
     const axios = require('axios')
 
@@ -23,35 +14,6 @@ function fetch(sub = 'programming') {
 }
 
 
-
-
-
-/**
-* @description This function, named `search`, takes an array `arr`, a search value 
-* `x`, and three indices `start`, `end`, and returns `true` if `x` is found in the 
-* array `arr` within the range of indices `start` to `end`, and `false` otherwise.
-* 
-* @param { array } arr - The `arr` input parameter is an array of elements that the 
-* function searches for a specific element. The function takes the array and three 
-* other parameters: `x`, `start`, and `end`.
-* 
-* @param { number } x - The `x` input parameter in the `search` function represents 
-* the value that is being searched for in the array.
-* 
-* @param { number } start - The `start` input parameter in the `search` function 
-* represents the starting index of the array to be searched. It determines the 
-* beginning of the subarray that should be searched for the target value `x`.
-* 
-* @param { number } end - The `end` input parameter in the `search` function specifies 
-* the end index of the array to be searched. It determines the end point of the range 
-* of elements that need to be checked for the target value. The function will not 
-* consider any elements beyond the end index in the search process.
-* 
-* @returns { array } - The output returned by this function is `true` or `false`. 
-* The function takes four parameters: `arr`, `x`, `start`, and `end`. It searches 
-* for the element `x` in the array `arr` starting from the index `start` and ending 
-* at the index `end`.
-*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
@@ -67,98 +29,6 @@ const search = (arr, x, start, end) => {
 
 
 
-
-/**
-* @description This function is an AWS Lambda function that handles requests related 
-* to authenticators for a user. It determines the user handle and name based on the 
-* JWT claims in the request context, and then checks if the requested path parameter 
-* is a valid RP ID. If it is, the function calls the appropriate method to handle 
-* the request, such as retrieving existing credentials for the user, deleting a 
-* credential, or updating a credential.
-* 
-* @param { object } event - The `event` input parameter in the function is an object 
-* that contains information about the incoming request.
-* 
-* Specifically, the `event` object contains the following properties:
-* 
-* 	- `requestContext`: An object that contains information about the request context, 
-* such as the authorizer, user, and client.
-* 	- `queryStringParameters`: An object that contains the query string parameters 
-* of the request.
-* 	- `body`: The request body, which is parsed as JSON.
-* 
-* The `event` object is used throughout the function to access these properties and 
-* extract the necessary information to handle the request.
-* 
-* @returns { object } - Based on the provided code, the output returned by the 
-* function will be a JSON object with the following properties:
-* 
-* 	- statusCode: 200 (if the request is valid and the operation is successful)
-* 	- body: a JSON object representing the authenticator registration or list of authenticators
-* 	- headers: a JSON object with additional information about the response, such as 
-* caching and content type headers
-* 
-* Here's an example output for each of the possible path parameters:
-* 
-* 	- `/register-authenticator/start`:
-* ```json
-* {
-*   "statusCode": 200,
-*   "body": {
-*     "name": "John Doe",
-*     "displayName": "John Doe",
-*     "rpId": "https://example.com",
-*     "options": [
-*       {
-*         "credentialId": "123456789",
-*         "friendlyName": "My Authenticator",
-*         "displayName": "My Authenticator",
-*         "type": "authenticator"
-*       }
-*     ]
-*   },
-*   "headers": {
-*     "Content-Type": "application/json"
-*   }
-* }
-* ```
-* 	- `/register-authenticator/complete`:
-* ```json
-* {
-*   "statusCode": 200,
-*   "body": {
-*     "credentialId": "123456789",
-*     "friendlyName": "My Authenticator",
-*     "displayName": "My Authenticator"
-*   },
-*   "headers": {
-*     "Content-Type": "application/json"
-*   }
-* }
-* ```
-* 	- `/authenticators/list`:
-* ```json
-* {
-*   "statusCode": 200,
-*   "body": {
-*     "authenticators": [
-*       {
-*         "credentialId": "123456789",
-*         "friendlyName": "My Authenticator",
-*         "displayName": "My Authenticator"
-*       }
-*     ]
-*   },
-*   "headers": {
-*     "Content-Type": "application/json"
-*   }
-* }
-* ```
-* 	- `/authenticators/delete`:
-* ```json
-* {
-*   "statusCode":
-*/
 const handler = async(event) => {
     try {
         const { sub, email, phone_number: phoneNumber, name, "cognito:username": cognitoUsername, } = event.requestContext.authorizer.jwt.claims;
