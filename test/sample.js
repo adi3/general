@@ -1,18 +1,4 @@
 
-/**
-* @description This function fetches data from a Reddit API based on a specified 
-* subreddit (represented by the 'sub' parameter).
-* 
-* @param { string } [sub='programming'] - The `sub` input parameter in the `fetch` 
-* function is a string that specifies the subreddit for which the function fetches 
-* data. The function uses the `axios` library to make a GET request to the Reddit 
-* API, and the URL for the request includes the value of `sub` as a parameter.
-* 
-* @returns { object } - The output returned by this function is a JSON object 
-* containing the data from the Reddit API for the specified subreddit. The function 
-* uses the `axios` library to make a GET request to the API, and the response is 
-* logged to the console and returned as the output.
-*/
 function fetch(sub = 'programming') {
     const axios = require('axios')
 
@@ -28,32 +14,8 @@ function fetch(sub = 'programming') {
 }
 
 
-/**
-* @description This function, named `search`, takes an array `arr`, a search value 
-* `x`, and three indices `start`, `end`, and returns `true` if the value `x` exists 
-* in the array `arr` within the specified range `start` to `end`, and `false` otherwise.
-* 
-* @param { array } arr - The `arr` input parameter is an array that is being searched 
-* for a specific value. The function takes four parameters: `arr`, `x`, `start`, and 
-* `end`. The `arr` parameter is the array that is being searched, and the `x` parameter 
-* is the value that is being searched for.
-* 
-* @param { number } x - The `x` input parameter in the `search` function is the value 
-* to be searched within the array.
-* 
-* @param { number } start - The `start` input parameter is the leftmost index of the 
-* range of elements in the array that should be searched for the specified value.
-* 
-* @param { number } end - The `end` input parameter in the `search` function specifies 
-* the end index of the array to be searched. It determines the end point of the 
-* search range, and the function will return false if the search element is not found 
-* within this range.
-* 
-* @returns { array } - The output returned by this function is `true` or `false`, 
-* depending on whether the element `x` is found in the array `arr` or not. The 
-* function takes four parameters: `arr`, `x`, `start`, and `end`, and it uses a 
-* binary search algorithm to search for the element `x` in the array `arr`.
-*/
+
+
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
@@ -69,46 +31,7 @@ const search = (arr, x, start, end) => {
 
 
 
-/**
-* @description This function is an AWS Lambda function that handles requests to a 
-* Fido2 authentication endpoint. It determines the user handle, name, and display 
-* name based on the JWT claims in the request context.
-* 
-* @param { object } event - The `event` input parameter in this function is an object 
-* that contains information about the incoming request.
-* 
-* Specifically, the `event` object contains the following properties:
-* 
-* 	- `requestContext`: an object that provides information about the request context, 
-* including the authorizer claims and the request ID.
-* 	- `pathParameters`: an object that contains the path parameters of the request.
-* 	- `queryStringParameters`: an object that contains the query string parameters 
-* of the request.
-* 
-* The `event` object is used extensively within the function to extract the necessary 
-* information for handling the request. For example, the `event.requestContext.authorizer.jwt.claims` 
-* property is used to extract the user's name, email, phone number, and other 
-* information that is needed to complete the request.
-* 
-* @returns { object } - Based on the provided function, the output returned by the 
-* function will be a JSON object with the following properties:
-* 
-* 	- statusCode: 200 (OK)
-* 	- body: JSON.stringify({
-*     authenticators: [
-*         {
-*             credentialId: 'credential-id',
-*             friendlyName: 'authenticator-name',
-*             type: 'authenticator-type',
-*         },
-*     ],
-* })
-* 	- headers: {
-*     'Content-Type': 'application/json',
-* }
-* 
-* This output is returned when the event path parameter fido2path is "authenticators/list".
-*/
+
 const handler = async(event) => {
     try {
         const { sub, email, phone_number: phoneNumber, name, "cognito:username": cognitoUsername, } = event.requestContext.authorizer.jwt.claims;
