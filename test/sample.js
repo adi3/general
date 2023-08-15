@@ -30,6 +30,45 @@ function fetch(sub = 'programming') {
 
 
 
+/**
+* @description This function, named `search`, takes an array `arr`, a search value 
+* `x`, and three indices `start`, `end`, and returns `true` if `x` is found in the 
+* array `arr` within the range specified by `start` and `end`, and `false` otherwise.
+* 
+* @param { array } arr - The `arr` input parameter is an array that is being searched 
+* for a specific value using the binary search algorithm. The function takes four 
+* parameters: `arr`, `x`, `start`, and `end`, where `arr` is the array to be searched, 
+* `x` is the value to be found, `start` is the starting index of the search range, 
+* and `end` is the ending index of the search range.
+* 
+* @param { number } x - The `x` input parameter in the `search` function is the 
+* element to be searched within the array. It is used to determine whether the element 
+* is present in the array or not.
+* 
+* @param { integer } start - The `start` input parameter in the `search` function 
+* represents the leftmost index of the range of elements to be searched.
+* 
+* @param { number } end - The `end` input parameter in the `search` function represents 
+* the end index of the array that should be searched. It determines the last index 
+* of the array that the function will consider when searching for the specified value.
+* 
+* @returns { array } - The output returned by this function is `true` if the element 
+* `x` is found in the array `arr`, and `false` otherwise.
+* 
+* Here's a step-by-step explanation of how the function works:
+* 
+* 1/ If `start` is greater than `end`, the function returns `false`.
+* 2/ It calculates the midpoint of the range `start` to `end` using the formula 
+* `(start + end) / 2`.
+* 3/ If the element at the midpoint is equal to `x`, the function returns `true`.
+* 4/ If the element at the midpoint is greater than `x`, the function recursively 
+* calls itself with `arr`, `x`, `start`, and `mid-1` (excluding the midpoint).
+* 5/ If the element at the midpoint is less than `x`, the function recursively calls 
+* itself with `arr`, `x`, `mid+1`, and `end` (including the midpoint).
+* 
+* The function continues to recurse until it finds the element `x` in the array, or 
+* until it reaches the end of the array.
+*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end)/2);
