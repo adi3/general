@@ -1,4 +1,3 @@
-
 /**
 * @description The function fetch(sub) makes an HTTP GET request to the Reddit API, 
 * retrieving data for the specified subreddit (sub) and logging the response to the 
